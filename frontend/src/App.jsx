@@ -28,8 +28,10 @@ function App({ token, role }) {
   const [resourceSaving, setResourceSaving] = useState(false)
   const [resourceMessage, setResourceMessage] = useState('')
 
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ''
+
   async function authenticatedFetch(url, options = {}) {
-    return fetch(url, {
+    return fetch(`${API_BASE_URL}${url}`, {
       ...options,
       headers: {
         ...options.headers,

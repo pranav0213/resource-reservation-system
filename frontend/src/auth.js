@@ -1,5 +1,6 @@
 
-const API_BASE = "/api/auth";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
+const API_BASE = `${API_BASE_URL}/api/auth`;
 
 async function sendAuthRequest(endpoint, data) {
   const response = await fetch(`${API_BASE}/${endpoint}`, {
