@@ -1,61 +1,191 @@
+ReserveHub — Resource Reservation Management System
 
-# ReserveHub — Resource Reservation Management System
+A full-stack resource booking platform built with Java, Spring Boot, React, and PostgreSQL, featuring secure JWT authentication, role-based access control, and concurrent booking protection.
 
-A full-stack web application for managing resources and reservations with secure authentication, role-based authorization, and double-booking prevention.
+Live Demo | Backend API | GitHub Repository
 
-## Overview
+Deployment note: The application uses Render's free hosting services. The backend may take some time to respond after inactivity. The current free PostgreSQL database is scheduled to expire on November 24, 2026, unless upgraded or migrated.
 
-ReserveHub is a full-stack resource reservation management system built with Spring Boot, React, and PostgreSQL. It allows users to browse resources, create reservations, and manage their bookings while providing administrators with tools to manage resources and reservations.
+Overview
 
-The application uses JWT authentication, role-based access control, reservation ownership checks, and database locking to help prevent overlapping reservations.
+ReserveHub is a full-stack web application designed to simplify the management and reservation of shared resources, such as conference rooms and equipment.
 
-## Features
+Users can browse available resources, reserve them for specific time periods, view their bookings, and cancel reservations. Administrators can manage resources and oversee reservations across users.
 
-### Authentication and Authorization
-- User registration and login
-- JWT-based authentication
-- Role-based access control (USER and ADMIN)
-- Protected API endpoints
-- Reservation ownership enforcement
+The system uses Spring Security and JWT for authentication and authorization, while PostgreSQL and database-level locking help protect against overlapping reservations and concurrent booking conflicts.
 
-### Resource Management
-- View resources
-- Create resources
-- Update resource information
-- Delete resources
-- Manage resource availability
+Key Features
 
-### Reservation Management
-- Create reservations for available resources
-- View reservations based on user permissions
-- Cancel reservations
-- Prevent overlapping reservations
-- Validate reservation dates and times
-- Use database locking to handle concurrent booking requests
+Authentication and Authorization
 
-### Frontend
-- React-based user interface
-- Login and registration pages
-- Resource and reservation views
-- Role-aware navigation and controls
-- Responsive styling
+User registration and login
 
-## Tech Stack
+JWT-based stateless authentication
 
-| Category | Technologies |
-|---|---|
-| Frontend | React, JavaScript, Vite, CSS |
-| Backend | Java 25, Spring Boot 4.1.1 |
-| Database | PostgreSQL |
-| Security | Spring Security, JWT |
-| Data Access | Spring Data JPA, Hibernate |
-| Testing | JUnit, Mockito, Spring Boot Test |
-| Build Tools | Maven, npm |
-| Development Tools | IntelliJ IDEA, Postman, Git, GitHub |
+Role-based access control with USER and ADMIN roles
 
-## Project Structure
+Protected REST API endpoints
 
-```text
+Reservation ownership enforcement
+
+Role-aware frontend controls
+
+Resource Management
+
+Browse available resources
+
+Create, update, and delete resources as an administrator
+
+Manage resource availability
+
+Store resource information in PostgreSQL
+
+Reservation Management
+
+Book resources for selected time intervals
+
+Validate reservation start and end times
+
+Prevent overlapping reservations
+
+Handle concurrent booking requests using database locking
+
+View reservations based on user permissions
+
+Cancel reservations with ownership and authorization checks
+
+Frontend
+
+React-based dashboard
+
+Login and registration interfaces
+
+Resource and reservation management views
+
+Role-specific actions and navigation
+
+Responsive CSS styling
+
+Backend connectivity status
+
+Technology Stack
+
+Category
+
+Technologies
+
+Frontend
+
+React, JavaScript, Vite, CSS
+
+Backend
+
+Java 25, Spring Boot 4.1.1
+
+Security
+
+Spring Security, JWT
+
+Database
+
+PostgreSQL 18
+
+Persistence
+
+Spring Data JPA, Hibernate
+
+Testing
+
+JUnit, Mockito, Spring Boot Test
+
+Build Tools
+
+Maven, npm
+
+Deployment
+
+Render, Docker
+
+Development Tools
+
+IntelliJ IDEA, VS Code, Postman, Git, GitHub
+
+System Architecture
+
+                React + Vite
+                 Frontend
+                    |
+                    | HTTPS / REST API
+                    v
+              Spring Boot API
+                    |
+          Spring Security + JWT
+                    |
+              REST Controllers
+                    |
+              Service Layer
+                    |
+          Spring Data JPA
+                    |
+                    v
+               PostgreSQL
+
+The React frontend communicates with Spring Boot through REST APIs. Spring Security authenticates requests and enforces role-based permissions. The service layer handles reservation validation, ownership checks, and booking conflicts. Spring Data JPA and PostgreSQL provide persistent storage and transaction management.
+
+User Roles
+
+Capability
+
+USER
+
+ADMIN
+
+Browse resources
+
+Yes
+
+Yes
+
+Create reservations
+
+Yes
+
+Yes
+
+View own reservations
+
+Yes
+
+Yes
+
+View all reservations
+
+No
+
+Yes
+
+Cancel own reservations
+
+Yes
+
+Yes
+
+Cancel other users' reservations
+
+No
+
+Yes
+
+Create, edit, and delete resources
+
+No
+
+Yes
+
+Newly registered accounts receive the USER role by default. Administrative access is assigned separately.
+
+Project Structure
+
 resource-reservation-system/
 ├── frontend/
 │   ├── public/
@@ -68,181 +198,258 @@ resource-reservation-system/
 │   │   │   ├── java/
 │   │   │   └── resources/
 │   │   └── test/
+│   ├── Dockerfile
 │   ├── pom.xml
 │   ├── mvnw
 │   └── mvnw.cmd
 ├── .gitignore
 └── README.md
-```
 
-## System Architecture
+Getting Started
 
-```text
-React Frontend
-      |
-      | HTTP / REST API
-      v
-Spring Boot Backend
-      |
-      +-- Spring Security + JWT
-      |
-      +-- Controllers
-      |
-      +-- Services
-      |
-      +-- Repositories
-      |
-      v
-PostgreSQL Database
-```
+Prerequisites
 
-The frontend communicates with the backend through REST APIs. Spring Security handles authentication and authorization. The service layer applies business rules, while Spring Data JPA manages database access.
+Java 25
 
-## User Roles
+Node.js and npm
 
-### USER
-- Browse resources
-- Create reservations
-- View their own reservations
-- Cancel their own reservations
+PostgreSQL
 
-### ADMIN
-- Manage resources
-- View reservations across users
-- Cancel reservations as an administrator
+Git
 
-## Running the Project Locally
+1. Clone the Repository
 
-### Prerequisites
-
-Install the following software:
-
-- Java 25
-- Node.js and npm
-- PostgreSQL
-- Git
-
-### 1. Clone the Repository
-
-```bash
 git clone https://github.com/pranav0213/resource-reservation-system.git
 cd resource-reservation-system
-```
 
-### 2. Configure PostgreSQL
+2. Configure PostgreSQL
 
 Create a PostgreSQL database named:
 
-```text
 reservation_db
-```
 
-The backend uses the following environment variables:
+Configure the backend database connection and JWT signing secret through environment variables.
 
-| Variable | Description |
-|---|---|
-| DB_PASSWORD | PostgreSQL database password |
-| JWT_SECRET | Secret key used for JWT signing |
+Variable
 
-Keep actual passwords and signing secrets out of Git.
+Description
 
-### 3. Start the Backend
+DB_URL
 
-Navigate to the backend directory:
+PostgreSQL JDBC connection URL
 
-```powershell
+DB_USERNAME
+
+PostgreSQL username
+
+DB_PASSWORD
+
+PostgreSQL password
+
+JWT_SECRET
+
+Secret used for JWT signing
+
+FRONTEND_URL
+
+Optional additional frontend origin allowed by CORS
+
+Example local JDBC URL:
+
+jdbc:postgresql://localhost:5432/reservation_db
+
+Never commit real database passwords, signing secrets, or production connection URLs to Git.
+
+3. Start the Backend
+
 cd reservation-system
-```
-
-Configure the required environment variables in your terminal or IDE.
-
-Start Spring Boot on Windows:
-
-```powershell
 .\mvnw.cmd spring-boot:run
-```
 
-The backend runs at:
+The backend runs locally at:
 
-```text
 http://localhost:8080
-```
 
-### 4. Start the Frontend
+4. Start the Frontend
 
-Open another terminal from the repository root:
+Open a separate terminal from the repository root:
 
-```powershell
 cd frontend
 npm install
 npm run dev
-```
 
 The Vite development server typically runs at:
 
-```text
 http://localhost:5173
-```
 
-Make sure the backend and frontend are both running.
+For local development, the frontend can use its configured development API routing. For production builds, set VITE_API_BASE_URL to the deployed backend URL.
 
-## Testing
+Testing
 
-The backend includes automated tests covering:
+ReserveHub includes automated backend tests for:
 
-- Valid reservation creation
-- Invalid reservation times
-- Unavailable resources
-- Overlapping reservations
-- Reservation ownership
-- USER and ADMIN authorization
-- Reservation cancellation
-- Concurrent booking prevention
+Reservation creation
 
-To run the tests, create a PostgreSQL test database named `reservation_test_db`, configure `DB_PASSWORD`, and run:
+Invalid reservation time validation
 
-```powershell
+Unavailable resources
+
+Overlapping reservations
+
+Reservation ownership
+
+Role-based authorization
+
+Reservation cancellation
+
+Concurrent booking prevention
+
+Create a separate PostgreSQL test database named:
+
+reservation_test_db
+
+Configure the required test environment variables, then run:
+
 cd reservation-system
 .\mvnw.cmd clean test
-```
 
-The latest verified local test run completed successfully with 12 tests passing.
+Latest verified local result: 12 tests passing.
 
-## Security
+Production Verification
 
-ReserveHub implements several security measures:
+The following workflows were successfully tested against the deployed application:
 
-- JWT-based authentication
-- Spring Security authorization
-- Role-based access control
-- User-specific reservation access
-- Restricted reservation cancellation
-- Input validation
-- Database locking for reservation concurrency
-- Environment variables for sensitive configuration
+Test Scenario
 
-Production deployments should use strong secrets, HTTPS, restricted database access, and appropriate production database migration settings.
+Result
 
-## Future Improvements
+User registration and login
 
-- Deploy the frontend, backend, and database to cloud services
-- Add continuous integration and deployment
-- Add reservation search and filtering
-- Implement email notifications
-- Add administrative reporting
-- Improve automated frontend testing
+Passed
 
-## Project Status
+Administrator login
 
-Core application development and automated backend testing are complete.
+Passed
 
-Cloud deployment and final production testing are planned.
+Administrator creates a resource
 
-## Author
+Passed
 
-Developed by [pranav0213](https://github.com/pranav0213).
+User views available resources
 
-## Repository
+Passed
 
-[ReserveHub — Resource Reservation Management System](https://github.com/pranav0213/resource-reservation-system)
-  
+User creates a reservation
+
+Passed
+
+Overlapping booking is rejected
+
+Passed
+
+User cancels a reservation
+
+Passed
+
+Frontend connects to the deployed backend
+
+Passed
+
+Backend connects to PostgreSQL
+
+Passed
+
+Security
+
+The application implements:
+
+JWT authentication
+
+Spring Security authorization
+
+USER and ADMIN permissions
+
+Reservation ownership checks
+
+Restricted administrative operations
+
+Input and booking time validation
+
+Database locking for concurrent reservation requests
+
+Environment-based secret configuration
+
+HTTPS for deployed frontend and backend communication
+
+Deployment
+
+ReserveHub is deployed using Render.
+
+Component
+
+Deployment
+
+Frontend
+
+Render Static Site
+
+Backend
+
+Render Docker Web Service
+
+Database
+
+Render PostgreSQL
+
+Live Application: https://reservehub-frontend.onrender.com
+
+Backend Base URL: https://reservehub-backend-wqh4.onrender.com
+
+The frontend communicates with the deployed Spring Boot API, which connects to PostgreSQL for persistent resource and reservation data.
+
+Screenshots
+
+Application screenshots will be added to demonstrate:
+
+Login and registration
+
+Administrator dashboard
+
+Resource management
+
+User reservation workflow
+
+Double-booking prevention
+
+Reservation cancellation
+
+Future Improvements
+
+Add GitHub Actions continuous integration
+
+Implement email booking notifications
+
+Add reservation search and filtering
+
+Improve frontend automated testing
+
+Add administrative analytics
+
+Improve date and timezone handling
+
+Introduce production database migration tooling
+
+Project Status
+
+Deployed and functional.
+
+The core resource management, authentication, authorization, and reservation workflows are implemented and have passed initial production testing.
+
+Further enhancements and production hardening are planned.
+
+Author
+
+Developed by Pranav Reddy.
+
+Repository
+
+github.com/pranav0213/resource-reservation-system
