@@ -274,14 +274,30 @@ The frontend communicates with the deployed Spring Boot API, which connects to P
 
 ## Screenshots
 
-Application screenshots will be added to demonstrate:
+### Administrator Dashboard
+Administrators can create, edit, and delete resources.
 
-- Login and registration
-- Administrator dashboard
-- Resource management
-- User reservation workflow
-- Double-booking prevention
-- Reservation cancellation
+![Administrator Dashboard](screenshots/admin-dashboard.png)
+
+### User Dashboard
+Users can browse resources and make reservations.
+
+![User Dashboard](screenshots/user-dashboard.png)
+
+### Resource Booking
+Users can select a resource and specify a reservation time.
+
+![Resource Booking Form](screenshots/booking-form.png)
+
+### Reservation Management
+Users can view and cancel their reservations.
+
+![Reservation Management](screenshots/reservations.png)
+
+### Double-Booking Prevention
+ReserveHub prevents overlapping reservations for the same resource.
+
+![Double-Booking Prevention](screenshots/double-booking.png)
 
 ## Future Improvements
 
